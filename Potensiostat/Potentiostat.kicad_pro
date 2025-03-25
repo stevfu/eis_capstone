@@ -424,6 +424,10 @@
     [
       "8ef11fa8-e4e8-447a-8611-1bb7a5b8f483",
       "Battery + Regulator"
+    ],
+    [
+      "47321a56-6407-4c93-8c61-295a55a82b8c",
+      "USB-UART"
     ]
   ],
   "text_variables": {}

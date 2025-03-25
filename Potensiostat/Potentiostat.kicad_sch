@@ -48,6 +48,48 @@
 		)
 	)
 	(sheet
+		(at 91.44 87.63)
+		(size 66.04 60.96)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "47321a56-6407-4c93-8c61-295a55a82b8c")
+		(property "Sheetname" "USB-UART"
+			(at 91.44 86.9184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "USB-UART.kicad_sch"
+			(at 91.44 149.1746 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "Potentiostat"
+				(path "/be108998-ac86-4f7d-931a-841db1905f2a"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 91.44 19.05)
 		(size 66.04 60.96)
 		(exclude_from_sim no)
