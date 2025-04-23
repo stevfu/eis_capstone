@@ -54,6 +54,7 @@
       "diff_pair_dimensions": [],
       "drc_exclusions": [],
       "meta": {
+        "filename": "board_design_settings.json",
         "version": 2
       },
       "rule_severities": {
@@ -116,9 +117,9 @@
       },
       "rules": {
         "max_error": 0.005,
-        "min_clearance": 0.0,
+        "min_clearance": 0.1,
         "min_connection": 0.0,
-        "min_copper_edge_clearance": 0.5,
+        "min_copper_edge_clearance": 0.025,
         "min_groove_width": 0.0,
         "min_hole_clearance": 0.25,
         "min_hole_to_hole": 0.25,
@@ -128,7 +129,7 @@
         "min_silk_clearance": 0.0,
         "min_text_height": 0.8,
         "min_text_thickness": 0.08,
-        "min_through_hole_diameter": 0.3,
+        "min_through_hole_diameter": 0.2,
         "min_track_width": 0.0,
         "min_via_annular_width": 0.1,
         "min_via_diameter": 0.5,
@@ -404,7 +405,6 @@
       "bus_entry_needed": "error",
       "bus_to_bus_conflict": "error",
       "bus_to_net_conflict": "error",
-      "conflicting_netclasses": "error",
       "different_unit_footprint": "error",
       "different_unit_net": "error",
       "duplicate_reference": "error",
@@ -450,14 +450,14 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "Potentiostat.kicad_pro",
+    "filename": "HELPStat_V2.kicad_pro",
     "version": 3
   },
   "net_settings": {
     "classes": [
       {
         "bus_width": 12,
-        "clearance": 0.2,
+        "clearance": 0.1,
         "diff_pair_gap": 0.25,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.2,
@@ -466,7 +466,7 @@
         "microvia_drill": 0.1,
         "name": "Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2147483647,
+        "priority": -1,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.2,
         "via_diameter": 0.6,
@@ -596,7 +596,7 @@
       "version": 1
     },
     "net_format_name": "",
-    "page_layout_descr_file": "",
+    "page_layout_descr_file": "empty.kicad_wks",
     "plot_directory": "",
     "space_save_all_events": true,
     "spice_current_sheet_as_root": false,
@@ -610,24 +610,8 @@
   },
   "sheets": [
     [
-      "be108998-ac86-4f7d-931a-841db1905f2a",
+      "302a1767-26c7-45b2-8580-ba13ee29cc86",
       "Root"
-    ],
-    [
-      "0ffaa295-7f3b-4787-9ecf-8f018fcb4c6f",
-      "ESP32"
-    ],
-    [
-      "62dba8b7-8e77-43af-b2ef-391554dc76c9",
-      "LMP91000SDX"
-    ],
-    [
-      "8ef11fa8-e4e8-447a-8611-1bb7a5b8f483",
-      "Battery + Regulator"
-    ],
-    [
-      "47321a56-6407-4c93-8c61-295a55a82b8c",
-      "USB-UART"
     ]
   ],
   "text_variables": {}
