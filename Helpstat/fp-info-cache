@@ -1,13 +1,6 @@
-24758281587416490
+24780962564724739
 10118192_0001LF
 AMPHENOL_10118192-0001LF
-
-
-0
-11
-11
-10118193_0001LF
-AMPHENOL_10118193-0001LF
 
 
 0
@@ -41,6 +34,13 @@ audio belton reverb
 0
 7
 7
+B2B_XH_A
+JST_B2B-XH-A
+
+
+0
+2
+2
 BAT20JFILM
 SOD-323
 
@@ -48,6 +48,27 @@ SOD-323
 0
 2
 2
+BSS205NH6327XTSA1
+PG-SOT23-3-5_INF
+
+BSS205NH6327XTSA1 
+0
+3
+3
+BSS205NH6327XTSA1
+PG-SOT23-3-5_INF-L
+
+BSS205NH6327XTSA1 
+0
+3
+3
+BSS205NH6327XTSA1
+PG-SOT23-3-5_INF-M
+
+BSS205NH6327XTSA1 
+0
+3
+3
 Battery
 BatteryClip_Keystone_54_D16-19mm
 Battery clip for batteries with a diameter between 16-19 mm: https://www.keyelco.com/product.cfm/product_id/826
@@ -2603,27 +2624,6 @@ speaker CUI
 0
 2
 2
-CP2104_F03_GM
-QFN24_4X4_SIL
-
-CP2104-F03-GM 
-0
-25
-25
-CP2104_F03_GM
-QFN24_4X4_SIL-L
-
-CP2104-F03-GM 
-0
-25
-25
-CP2104_F03_GM
-QFN24_4X4_SIL-M
-
-CP2104-F03-GM 
-0
-25
-25
 Calibration_Scale
 Gauge_10mm_Type1_CopperTop
 Gauge, Massstab, 10mm, CopperTop, Type 1,
@@ -64707,6 +64707,27 @@ solder jumper open
 0
 3
 3
+LED1212_AndrewCustom
+LED_00-R18_OSR
+
+GY PSLM31.13-HQHS-5F5G-L2M2-100-R18 
+0
+2
+2
+LED1212_AndrewCustom
+LED_00-R18_OSR-L
+
+GY PSLM31.13-HQHS-5F5G-L2M2-100-R18 
+0
+2
+2
+LED1212_AndrewCustom
+LED_00-R18_OSR-M
+
+GY PSLM31.13-HQHS-5F5G-L2M2-100-R18 
+0
+2
+2
 LED_SMD
 LED-APA102-2020
 http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf
@@ -65918,6 +65939,20 @@ LMP91000SDX/NOPB
 0
 15
 15
+M20_9990246
+HARWIN_M20-9990246
+
+
+0
+2
+2
+M50_3530442
+HARWIN_M50-3530442
+
+
+0
+4
+4
 MCP73831T_2ACI_OT
 SOT-23-5_MC_MCH
 
@@ -69887,6 +69922,13 @@ DIL DIP PDIP 2.54mm 7.62mm 300mil
 0
 4
 4
+PPTC071LFBN_RC
+CONN_xPxC071LFBN-RC_SUL
+
+PPTC071LFBN-RC 
+0
+7
+7
 Package_BGA
 Alliance_TFBGA-36_6x8mm_Layout6x8_P0.75mm
 Alliance TFBGA-36, NSMD, 6.0x8.0mm, 36 Ball, 6x8 Layout, 0.75mm Pitch, https://www.alliancememory.com/wp-content/uploads/pdf/AS6C1008_Mar_2023V1.2.pdf
@@ -87730,6 +87772,13 @@ Potentiometer vertical vishay
 0
 3
 3
+Pylon
+Pylon
+
+
+0
+0
+0
 RF
 Skyworks_SKY13575_639LF
 http://www.skyworksinc.com/uploads/documents/SKY13575_639LF_203270D.pdf
@@ -92959,6 +93008,27 @@ Logo WEEE
 0
 0
 0
+TCR3DF335_LM_CT
+SOT-25   SMV_TOS
+
+TCR3DF335_LMCT 
+0
+5
+5
+TP4057
+SOT23-6
+
+
+0
+6
+6
+TP4057
+SOT23-6-LAPTOP-311H0TT8
+
+
+0
+6
+6
 TerminalBlock
 TerminalBlock_Altech_AK300-2_P5.00mm
 Altech AK300 terminal block, pitch 5.0mm, 45 degree angled, see http://www.mouser.com/ds/2/16/PCBMETRC-24178.pdf
@@ -98818,6 +98888,27 @@ igbt diode module
 0
 25
 25
+UMH3NTN
+SOT-363_ROM
+
+UMH3NTN 
+0
+6
+6
+UMH3NTN
+SOT-363_ROM-L
+
+UMH3NTN 
+0
+6
+6
+UMH3NTN
+SOT-363_ROM-M
+
+UMH3NTN 
+0
+6
+6
 Valve
 Valve_ECC-83-1
 Valve ECC-83-1 round pins
