@@ -11,4 +11,5 @@
   (lib (name "B2B_XH_A")(type "KiCad")(uri "${KIPRJMOD}/B2B_XH_A")(options "")(descr ""))
   (lib (name "M20_9990246")(type "KiCad")(uri "${KIPRJMOD}/M20_9990246")(options "")(descr ""))
   (lib (name "M50_3530442")(type "KiCad")(uri "${KIPRJMOD}/M50_3530442")(options "")(descr ""))
+  (lib (name "Dome")(type "KiCad")(uri "${KIPRJMOD}/Dome")(options "")(descr ""))
 )
