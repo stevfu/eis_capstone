@@ -1,4 +1,4 @@
-24782708532097814
+24768780176811550
 10118192_0001LF
 AMPHENOL_10118192-0001LF
 
@@ -57322,6 +57322,13 @@ MODULE_ESP32-DEVKITC-32D
 0
 38
 38
+ESP32-S3-DEVKITC-1-N8R2
+XCVR_ESP32-S3-DEVKITC-1-N8R2
+
+
+0
+44
+44
 Ferrite_THT
 LairdTech_28C0236-0JW-10
 Ferrite, vertical, LairdTech 28C0236-0JW-10, https://assets.lairdtech.com/home/brandworld/files/28C0236-0JW-10.pdf, JW Miller core https://www.bourns.com/products/magnetic-products/j.w.-miller-through-hole-ferrite-beads-emi-filters
@@ -65939,13 +65946,6 @@ Yellow 5381 Series LED
 0
 2
 2
-LMP91000SDX_NOPB
-SDA14B
-
-LMP91000SDX/NOPB 
-0
-15
-15
 M20_9990246
 HARWIN_M20-9990246
 
@@ -69929,13 +69929,6 @@ DIL DIP PDIP 2.54mm 7.62mm 300mil
 0
 4
 4
-PPTC071LFBN_RC
-CONN_xPxC071LFBN-RC_SUL
-
-PPTC071LFBN-RC 
-0
-7
-7
 Package_BGA
 Alliance_TFBGA-36_6x8mm_Layout6x8_P0.75mm
 Alliance TFBGA-36, NSMD, 6.0x8.0mm, 36 Ball, 6x8 Layout, 0.75mm Pitch, https://www.alliancememory.com/wp-content/uploads/pdf/AS6C1008_Mar_2023V1.2.pdf
@@ -87779,13 +87772,6 @@ Potentiometer vertical vishay
 0
 3
 3
-Pylon
-Pylon
-
-
-0
-0
-0
 RF
 Skyworks_SKY13575_639LF
 http://www.skyworksinc.com/uploads/documents/SKY13575_639LF_203270D.pdf
@@ -93015,27 +93001,6 @@ Logo WEEE
 0
 0
 0
-TCR3DF335_LM_CT
-SOT-25   SMV_TOS
-
-TCR3DF335_LMCT 
-0
-5
-5
-TP4057
-SOT23-6
-
-
-0
-6
-6
-TP4057
-SOT23-6-LAPTOP-311H0TT8
-
-
-0
-6
-6
 TerminalBlock
 TerminalBlock_Altech_AK300-2_P5.00mm
 Altech AK300 terminal block, pitch 5.0mm, 45 degree angled, see http://www.mouser.com/ds/2/16/PCBMETRC-24178.pdf
@@ -98895,27 +98860,6 @@ igbt diode module
 0
 25
 25
-UMH3NTN
-SOT-363_ROM
-
-UMH3NTN 
-0
-6
-6
-UMH3NTN
-SOT-363_ROM-L
-
-UMH3NTN 
-0
-6
-6
-UMH3NTN
-SOT-363_ROM-M
-
-UMH3NTN 
-0
-6
-6
 Valve
 Valve_ECC-83-1
 Valve ECC-83-1 round pins
