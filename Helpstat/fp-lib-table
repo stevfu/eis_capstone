@@ -13,4 +13,6 @@
   (lib (name "M50_3530442")(type "KiCad")(uri "${KIPRJMOD}/M50_3530442")(options "")(descr ""))
   (lib (name "Dome")(type "KiCad")(uri "${KIPRJMOD}/Dome")(options "")(descr ""))
   (lib (name "ESP32-S3-DEVKITC-1-N8R2")(type "KiCad")(uri "${KIPRJMOD}/ESP32-S3-DEVKITC-1-N8R2")(options "")(descr ""))
+  (lib (name "61300411121")(type "KiCad")(uri "${KIPRJMOD}/61300411121")(options "")(descr ""))
+  (lib (name "ConduitQ")(type "KiCad")(uri "${KIPRJMOD}/ConduitQ")(options "")(descr ""))
 )

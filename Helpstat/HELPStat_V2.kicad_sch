@@ -9906,6 +9906,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "ESP32-S3-DEVKITC-1-N8R2"
+			(at 209.55 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(property "MF" "Espressif Systems"
 			(at 209.55 180.34 0)
 			(effects
@@ -10255,7 +10264,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "M50-3530442"
+		(property "Value" "61300411121"
 			(at 267.97 96.5199 0)
 			(effects
 				(font
@@ -10264,7 +10273,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "M50_3530442:HARWIN_M50-3530442"
+		(property "Footprint" "61300411121:61300411121"
 			(at 260.35 96.52 0)
 			(effects
 				(font
@@ -10292,7 +10301,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part Number" "M50-3530442"
+		(property "Part Number" "61300411121"
 			(at 260.35 96.52 0)
 			(effects
 				(font
@@ -10311,7 +10320,7 @@
 				(hide yes)
 			)
 		)
-		(property "MANUFACTURER" "HARWIN"
+		(property "MANUFACTURER" ""
 			(at 260.35 96.52 0)
 			(effects
 				(font
@@ -10880,7 +10889,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "M50-3530442"
+		(property "Value" "61300411121"
 			(at 438.15 198.1199 0)
 			(effects
 				(font
@@ -10889,7 +10898,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "M50_3530442:HARWIN_M50-3530442"
+		(property "Footprint" "61300411121:61300411121"
 			(at 430.53 198.12 0)
 			(effects
 				(font
@@ -10917,7 +10926,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part Number" "M50-3530442"
+		(property "Part Number" "61300411121"
 			(at 430.53 198.12 0)
 			(effects
 				(font
@@ -10936,7 +10945,7 @@
 				(hide yes)
 			)
 		)
-		(property "MANUFACTURER" "HARWIN"
+		(property "MANUFACTURER" ""
 			(at 430.53 198.12 0)
 			(effects
 				(font
@@ -11664,7 +11673,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "M50-3530442"
+		(property "Value" "61300411121"
 			(at 229.87 96.5199 0)
 			(effects
 				(font
@@ -11673,7 +11682,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "M50_3530442:HARWIN_M50-3530442"
+		(property "Footprint" "61300411121:61300411121"
 			(at 222.25 96.52 0)
 			(effects
 				(font
@@ -11701,7 +11710,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part Number" "M50-3530442"
+		(property "Part Number" "61300411121"
 			(at 222.25 96.52 0)
 			(effects
 				(font
@@ -11720,7 +11729,7 @@
 				(hide yes)
 			)
 		)
-		(property "MANUFACTURER" "HARWIN"
+		(property "MANUFACTURER" ""
 			(at 222.25 96.52 0)
 			(effects
 				(font
@@ -13647,7 +13656,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "M50-3530442"
+		(property "Value" "61300411121"
 			(at 438.15 177.7999 0)
 			(effects
 				(font
@@ -13656,7 +13665,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "M50_3530442:HARWIN_M50-3530442"
+		(property "Footprint" "61300411121:61300411121"
 			(at 430.53 177.8 0)
 			(effects
 				(font
@@ -13684,7 +13693,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part Number" "M50-3530442"
+		(property "Part Number" "61300411121"
 			(at 430.53 177.8 0)
 			(effects
 				(font
@@ -13703,7 +13712,7 @@
 				(hide yes)
 			)
 		)
-		(property "MANUFACTURER" "HARWIN"
+		(property "MANUFACTURER" ""
 			(at 430.53 177.8 0)
 			(effects
 				(font
@@ -14405,7 +14414,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "M50-3530442"
+		(property "Value" "61300411121"
 			(at 229.87 119.3799 0)
 			(effects
 				(font
@@ -14414,7 +14423,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "M50_3530442:HARWIN_M50-3530442"
+		(property "Footprint" "61300411121:61300411121"
 			(at 222.25 119.38 0)
 			(effects
 				(font
@@ -14442,7 +14451,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part Number" "M50-3530442"
+		(property "Part Number" "61300411121"
 			(at 222.25 119.38 0)
 			(effects
 				(font
@@ -14461,7 +14470,7 @@
 				(hide yes)
 			)
 		)
-		(property "MANUFACTURER" "HARWIN"
+		(property "MANUFACTURER" ""
 			(at 222.25 119.38 0)
 			(effects
 				(font
@@ -14921,7 +14930,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "M50-3530442"
+		(property "Value" "61300411121"
 			(at 472.44 198.1199 0)
 			(effects
 				(font
@@ -14930,7 +14939,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "M50_3530442:HARWIN_M50-3530442"
+		(property "Footprint" "61300411121:61300411121"
 			(at 464.82 198.12 0)
 			(effects
 				(font
@@ -14958,7 +14967,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part Number" "M50-3530442"
+		(property "Part Number" "61300411121"
 			(at 464.82 198.12 0)
 			(effects
 				(font
@@ -14977,7 +14986,7 @@
 				(hide yes)
 			)
 		)
-		(property "MANUFACTURER" "HARWIN"
+		(property "MANUFACTURER" ""
 			(at 464.82 198.12 0)
 			(effects
 				(font

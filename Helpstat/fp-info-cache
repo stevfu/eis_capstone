@@ -1,4 +1,4 @@
-24768780176811550
+24780977774813050
 10118192_0001LF
 AMPHENOL_10118192-0001LF
 
@@ -6,6 +6,20 @@ AMPHENOL_10118192-0001LF
 0
 11
 11
+10118193_0001LF
+AMPHENOL_10118193-0001LF
+
+
+0
+11
+11
+61300411121
+61300411121
+
+
+0
+4
+4
 AD5941BCPZ_RL7
 QFN50P700X700X80-49N
 
@@ -2624,6 +2638,27 @@ speaker CUI
 0
 2
 2
+CP2104_F03_GM
+QFN24_4X4_SIL
+
+CP2104-F03-GM 
+0
+25
+25
+CP2104_F03_GM
+QFN24_4X4_SIL-L
+
+CP2104-F03-GM 
+0
+25
+25
+CP2104_F03_GM
+QFN24_4X4_SIL-M
+
+CP2104-F03-GM 
+0
+25
+25
 Calibration_Scale
 Gauge_10mm_Type1_CopperTop
 Gauge, Massstab, 10mm, CopperTop, Type 1,
@@ -6516,6 +6551,13 @@ capacitor tantalum
 0
 2
 2
+ConduitQ
+Radiant Transfer
+
+
+0
+0
+0
 Connector
 Banana_Cliff_FCR7350B_S16N-PC_Horizontal
 Cliff single 4mm shrouded banana panel socket, through-hole, horizontal, black, https://www.cliffuk.co.uk/products/testleads/sockets/S16NPC.pdf
@@ -65946,6 +65988,13 @@ Yellow 5381 Series LED
 0
 2
 2
+LMP91000SDX_NOPB
+SDA14B
+
+LMP91000SDX/NOPB 
+0
+15
+15
 M20_9990246
 HARWIN_M20-9990246
 
