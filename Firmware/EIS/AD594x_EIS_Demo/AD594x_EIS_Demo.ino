@@ -29,7 +29,7 @@
     SOFTWARE.
 */
 
-#include <HelpStat.h>
+#include "HELPStat.h"
 #include <vector>
 #include <string>
 
@@ -67,14 +67,14 @@ calHSTIA test[] = {
 int gainSize = (int)sizeof(test) / sizeof(test[0]);
 
 uint32_t numCycles = 0; 
-uint32_t delaySecs = 0; 
-uint32_t numPoints = 6; 
+uint32_t delaySecs = 0;  
+uint32_t numPoints = 100; 
 
 float startFreq = 100000; 
-float endFreq = 1; 
+float endFreq = 0.00001; //1
 float biasVolt = 0.0; 
 float zeroVolt = 0.0; 
-float rcalVal = 1000; // Use the measured resistance of the chosen calibration resistor
+float rcalVal = 10000; // Use the measured resistance of the chosen calibration resistor
 
 int extGain = 1; 
 int dacGain = 1; 
@@ -89,7 +89,7 @@ String folderName = "folder-name-here";
 String fileName = "file-name-here"; 
 
 void setup() {
-  // Serial.begin(115200);
+  Serial.begin(115200);
   
   demo.BLE_setup();
   /* Optional inputs to establish pins for button and LEDs*/
@@ -149,7 +149,6 @@ void loop() {
   // if(buttonStatus == LOW)
   // {
   digitalWrite(LEDPIN, LOW);
-  delay(1000);
   Serial.println("Button pressed - starting measurements!");
 
   demo.print_settings();
@@ -157,12 +156,11 @@ void loop() {
   // blinkLED(3, 0);
     
   /* Main Testing Code - also used for current draw as a standard sweep measurement */
-  demo.AD5940_TDD(test, gainSize); // This version uses the private variables for startFreq, endFreq, etc.
+  demo.AD5940_TDD(startFreq, endFreq, numPoints, biasVolt, zeroVolt, rcalVal, test, gainSize, extGain, dacGain); 
   demo.runSweep();
-  std::vector<float> resistors = demo.calculateResistors();
+  //demo.calculateResistors();
   demo.BLE_transmitResults();
-  demo.saveDataEIS("folder-name-here", "file-name-here");
-  
+  demo.saveDataEIS(); 
 
 
     /* Current Draw Code - (no sweep but set for measurement)*/
