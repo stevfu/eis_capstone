@@ -9,7 +9,7 @@ wRealWeight  = 1;
 wImagWeight  = 1;
 dataFile = '5HourTest_n 1.csv';
 
-selectedModel = 'Gerischer'; % Options: '2RC', 'R-C', 'Warburg', 'Gerischer', 'DRT'
+selectedModel = '2RC'; % Options: '2RC', 'R-C', 'Warburg', 'Gerischer', 'DRT'
 
 %% 2) Load & Inspect Data
 D     = readmatrix(dataFile);
