@@ -1,0 +1,55 @@
+clear all; clc;
+
+Rs_expected  = 35000;       % Ohm
+Rct_expected = 90000;     % Ohm
+Cdl_expected = 70.4e-6;     % F
+wRealWeight  = 1;
+wImagWeight  = 1;
+dataFile = 'Overnight.csv';
+d1 = 'testdata.csv';
+d2 = '5HourTest_n 1.csv';
+
+%selectedModel = 'Gerischer'; 
+
+D      = readmatrix(dataFile);
+D_1    = readmatrix(d1);
+D_2    = readmatrix(d2);
+
+freq  = D(:,2);
+Zr    = D(:,6);
+Zi    = -D(:,7);                             % Invert sign if CSV stored +Im(Z)
+
+freq1  = D(:,2);
+Zr1    = D(:,6);
+Zi1    = -D(:,7);  
+
+freq2  = D(:,2);
+Zr2    = D(:,6);
+Zi2    = -D(:,7);  
+
+[freq, sortIdx] = sort(freq);                % Ensure frequency is sorted
+Zr = Zr(sortIdx);
+Zi = Zi(sortIdx);
+
+[freq, sortIdx] = sort(freq);                % Ensure frequency is sorted
+Zr1 = Zr(sortIdx);
+Zi = Zi(sortIdx);
+
+
+[freq, sortIdx] = sort(freq);                % Ensure frequency is sorted
+Zr = Zr(sortIdx);
+Zi = Zi(sortIdx);
+
+
+windowSize = 131;
+Zr_smooth = movmean(Zr, windowSize);
+Zi_smooth = movmean(Zi, windowSize);
+Zexp = Zr_smooth + 1j * Zi_smooth;
+
+figure('Name', 'Nyquist ');
+plot(Zr_smooth, Zi_smooth, 'o', 'DisplayName','Data'); hold on;
+plot(Zr_smooth, Zi_smooth, '-', 'LineWidth',1.5, 'DisplayName','Model Fit');
+axis equal; grid on;
+xlabel('Z_{real} [\Omega]'); ylabel('-Z_{imag} [\Omega]');
+title('Nyquist Plot'); legend('Location','best');
+
