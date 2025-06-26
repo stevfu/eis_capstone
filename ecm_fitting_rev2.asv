@@ -1,9 +1,9 @@
  clear all; clc;
 
 %Validate and Prove
-Rs = 1388.889; % electrolyte resistance (Ohms)
-Rct = 1280; % Charge transfer resistance (Ohms)
-Cdl = 70.8e-5; % Double layer capacitance (Farads)
+Rs = 10000; % electrolyte resistance (Ohms)
+Rct = 10e7; % Charge transfer resistance (Ohms)
+Cdl = 15e-6; % Double layer capacitance (Farads)
 
 
 s = tf('s');
@@ -18,9 +18,9 @@ disp('The transfer function (Impedance Z(s)) is:');
 Z_tf
 
 %setup
-f_start = .1;   % Start frequency sweep in Hz 
+f_start = .001;   % Start frequency sweep in Hz 
 f_end = 100000; % End frequency sweep in Hz 
-n_points = 100;   % Number of frequency points, N
+n_points = 680;   % Number of frequency points, N
 
 %frequency vector
 freq_hz = logspace(log10(f_start), log10(f_end), n_points);
@@ -78,12 +78,16 @@ title('Nyquist Plot'); legend('Location','best');
 
 hold off;
 
+% realZ = Zr_smooth;
+% imagZ = Zi_smooth;
+realZ = Zr;
+imagZ = Zi;
 freqExt = freq;
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure('Name','Impedance Spectroscopy','NumberTitle','on');
 set(gca,'FontSize',12,'LineWidth',2,'Color',[1 1 1],'Box','on');
-h = semilogx(freqExt,Z);
+h = semilogx(freqExt,realZ);
 set(h,'LineWidth',4,'LineStyle','-','Color','b')
 hold on;
 h = semilogx(freq,imagZ);
