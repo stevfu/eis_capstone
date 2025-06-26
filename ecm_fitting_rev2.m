@@ -1,8 +1,8 @@
  clear all; clc;
 
 %Validate and Prove
-Rs = 1388.889; % electrolyte resistance (Ohms)
-Rct = 1280; % Charge transfer resistance (Ohms)
+Rs = 138.889; % electrolyte resistance (Ohms)
+Rct = 12800; % Charge transfer resistance (Ohms)
 Cdl = 70.8e-5; % Double layer capacitance (Farads)
 
 
@@ -18,7 +18,7 @@ disp('The transfer function (Impedance Z(s)) is:');
 Z_tf
 
 %setup
-f_start = .1;   % Start frequency sweep in Hz 
+f_start = .001;   % Start frequency sweep in Hz 
 f_end = 100000; % End frequency sweep in Hz 
 n_points = 680;   % Number of frequency points, N
 
