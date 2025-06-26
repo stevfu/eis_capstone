@@ -2,14 +2,14 @@
 clear all; clc;
 
 %% 1) User Settings & Metadata
-Rs_expected  = 35000;       % Ohm
-Rct_expected = 90000;     % Ohm
+Rs_expected  = 13888.889;       % Ohm
+Rct_expected = 128000;     % Ohm
 Cdl_expected = 70.4e-6;     % F
 wRealWeight  = 1;
 wImagWeight  = 1;
-dataFile = '5HourTest_n 1.csv';
+dataFile = 'test_2025-06-11.csv';
 
-selectedModel = 'Gerischer'; % Options: '2RC', 'R-C', 'Warburg', 'Gerischer', 'DRT'
+selectedModel = '2RC'; % Options: '2RC', 'R-C', 'Warburg', 'Gerischer', 'DRT'
 
 %% 2) Load & Inspect Data
 D     = readmatrix(dataFile);
@@ -23,7 +23,7 @@ Zr = Zr(sortIdx);
 Zi = Zi(sortIdx);
 
 % Apply moving average filter
-windowSize = 131;
+windowSize = 13;
 Zr_smooth = movmean(Zr, windowSize);
 Zi_smooth = movmean(Zi, windowSize);
 Zexp = Zr_smooth + 1j * Zi_smooth;
@@ -135,6 +135,7 @@ ylabel('|Z| [\Omega]'); title('Bode - Magnitude'); grid on; legend('Data','Fit')
 subplot(2,1,2);
 semilogx(freq, angle(Zexp)*180/pi, 'o', freq, angle(Zfit)*180/pi, '-', 'LineWidth',1.5);
 xlabel('Frequency [Hz]'); ylabel('Phase [°]'); title('Bode - Phase'); grid on; legend('Data','Fit');
+
 
 % %% 9) Robust Loewner Framework Approximation
 % 
