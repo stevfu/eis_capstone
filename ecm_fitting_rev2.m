@@ -1,8 +1,8 @@
  clear all; clc;
 
 %Validate and Prove
-Rs = 10000; % electrolyte resistance (Ohms)
-Rct = 1e7; % Charge transfer resistance (Ohms)
+Rs = 1000; % electrolyte resistance (Ohms)
+Rct = 1e4; % Charge transfer resistance (Ohms)
 Cdl = 15e-6; % Double layer capacitance (Farads)
 
 
@@ -40,20 +40,20 @@ Z_imag = imag(Z_complex);
 
 wRealWeight  = 1;
 wImagWeight  = 1;
-dataFile = 'Overnight.csv';
+dataFile = 'TESTsynthetic_eis_data.csv';
 
 D = readmatrix(dataFile);
 
-freq  = D(:,2);
-Zr    = D(:,6);
-Zi    = -D(:,7);                             % Invert sign if CSV stored +Im(Z)
+freq  = D(:,1);
+Zr    = abs(D(:,2));
+Zi    = abs(D(:,3));                             % Invert sign if CSV stored +Im(Z)
 
 [freq, sortIdx] = sort(freq);                % Ensure frequency is sorted
 Zr = Zr(sortIdx);
 Zi = Zi(sortIdx);
 
 
-windowSize =1001;
+windowSize =7;
 Zr_smooth = movmean(Zr, windowSize);
 Zi_smooth = movmean(Zi, windowSize);
 
@@ -67,8 +67,8 @@ figure('Name', 'Nyquist ');
 %plot(Zr_smooth, Zi_smooth, '-', 'LineWidth',1.5, 'DisplayName','Model Fit');
 
 
-plot(Z_real, -Z_imag, '-o'); % Plot Z_real vs -Z_imag
-hold on;
+% plot(Z_real, -Z_imag, '-o'); % Plot Z_real vs -Z_imag
+% hold on;
 
 plot(Zr_smooth, Zi_smooth, '-o'); 
 axis equal; grid on;
@@ -78,10 +78,10 @@ title('Nyquist Plot'); legend('Location','best');
 
 hold off;
 
-% realZ = Zr_smooth;
-% imagZ = Zi_smooth;
-realZ = Zr;
-imagZ = Zi;
+realZ = Zr_smooth;
+imagZ = Zi_smooth;
+% realZ = Zr;
+% imagZ = Zi;
 freqExt = freq;
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -90,7 +90,7 @@ set(gca,'FontSize',12,'LineWidth',2,'Color',[1 1 1],'Box','on');
 h = semilogx(freqExt,realZ);
 set(h,'LineWidth',4,'LineStyle','-','Color','b')
 hold on;
-h = semilogx(freq,imagZ);
+h = semilogx(freqExt,imagZ);
 set(h,'LineWidth',4,'LineStyle','--','Color','r')
 grid on
 title('Impedance Spectroscopy','fontsize',12,'fontweight','n','color','k');
