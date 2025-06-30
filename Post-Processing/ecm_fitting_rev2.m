@@ -40,13 +40,13 @@ Z_imag = imag(Z_complex);
 
 wRealWeight  = 1;
 wImagWeight  = 1;
-dataFile = 'testdata_2025-06-27 (2.1).csv';
+dataFile = '5HourTest_n.csv';
 
 D = readmatrix(dataFile);
 
-freq  = D(:,1);
-Zr    = abs(D(:,2));
-Zi    = abs(D(:,3));                             % Invert sign if CSV stored +Im(Z)
+freq  = D(:,2);
+Zr    = abs(D(:,6));
+Zi    = abs(D(:,7));                             % Invert sign if CSV stored +Im(Z)
 
 [freq, sortIdx] = sort(freq);                % Ensure frequency is sorted
 Zr = Zr(sortIdx);
