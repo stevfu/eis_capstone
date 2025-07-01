@@ -1,4 +1,4 @@
- clear all; clc;
+clear all; clc;
  
 %Validate and Prove
 Rs = 1000; % electrolyte resistance (Ohms)
@@ -53,12 +53,18 @@ Zr = Zr(sortIdx);
 Zi = Zi(sortIdx);
 
 
-windowSize =7;
-Zr_smooth = movmean(Zr, windowSize);
-Zi_smooth = movmean(Zi, windowSize);
+window = 11;
+polyorder = 2;
 
-%%Kramer kronig
-%Zre = (1/pi)*
+Z_real_sg = sgolayfilt(Zr, polyorder, window);
+Z_imag_sg = sgolayfilt(Zi, polyorder, window);
+
+order = 3;
+cutoff = 0.1;  % Normalized cutoff (0 < cutoff < 1)
+[b, a] = butter(order, cutoff, 'low');
+
+Zr_smooth = filtfilt(b, a, Zr)
+Zi_smooth = filtfilt(b, a, Zi)
 
 Zexp = Zr_smooth + 1j * Zi_smooth;
 
@@ -262,7 +268,7 @@ rmse = sqrt(mean([residuals_real; residuals_imag].^2));
 
 % Plot results
 figure;
-plot(Z_real, -Z_imag, 'o', 'DisplayName', 'Measured');
+plot(Z_real, Z_imag, 'o', 'DisplayName', 'Measured');
 hold on;
 plot(Z_fit_real, -Z_fit_imag, 'r-', 'DisplayName', 'Fitted');
 set(gca, 'YDir', 'normal');
