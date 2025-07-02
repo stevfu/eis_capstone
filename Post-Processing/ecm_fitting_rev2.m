@@ -40,21 +40,21 @@ Z_imag = imag(Z_complex);
 
 wRealWeight  = 1;
 wImagWeight  = 1;
-dataFile = '5HourTest_n.csv';
+dataFile = 'testdata_20250701 (1).csv';
 
 D = readmatrix(dataFile);
 
-freq  = D(:,2);
-Zr    = abs(D(:,6));
-Zi    = abs(D(:,7));                             % Invert sign if CSV stored +Im(Z)
+freq  = D(:,1);
+Zr    = abs(D(:,5));
+Zi    = abs(D(:,6));                             % Invert sign if CSV stored +Im(Z)
 
 [freq, sortIdx] = sort(freq);                % Ensure frequency is sorted
 Zr = Zr(sortIdx);
 Zi = Zi(sortIdx);
 
 
-window = 11;
-polyorder = 2;
+window = 7;
+polyorder = 3;
 
 Z_real_sg = sgolayfilt(Zr, polyorder, window);
 Z_imag_sg = sgolayfilt(Zi, polyorder, window);
@@ -63,8 +63,11 @@ order = 3;
 cutoff = 0.1;  % Normalized cutoff (0 < cutoff < 1)
 [b, a] = butter(order, cutoff, 'low');
 
-Zr_smooth = filtfilt(b, a, Zr)
-Zi_smooth = filtfilt(b, a, Zi)
+% Zr_smooth = filtfilt(b, a, Zr)
+% Zi_smooth = filtfilt(b, a, Zi)
+
+Zr_smooth = Zr;
+Zi_smooth = Zi
 
 Zexp = Zr_smooth + 1j * Zi_smooth;
 
