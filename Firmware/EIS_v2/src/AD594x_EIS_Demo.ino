@@ -55,15 +55,20 @@
 #define LEDPIN 6
 
 calHSTIA test[] = {          
-  {0.1,         HSTIARTIA_160K},     // Very low frequencies need high gain  
-  {1,           HSTIARTIA_80K},       
-  {10,          HSTIARTIA_40K},       
-  {100,         HSTIARTIA_20K},
-  {1000,        HSTIARTIA_10K},
-  {10000,       HSTIARTIA_5K},
-  {50000,       HSTIARTIA_1K},
-  {200000,      HSTIARTIA_200}  
-};    
+  {0.1,         HSTIARTIA_160K},     // Very low freq - expect high impedance due to electrode polarization
+  {0.5,         HSTIARTIA_80K},      // Low freq - still high impedance  
+  {1,           HSTIARTIA_40K},      // Transition region
+  {5,           HSTIARTIA_20K},      // Mid-low frequencies
+  {10,          HSTIARTIA_10K},      // Typical water impedance range
+  {50,          HSTIARTIA_5K},       // Higher conductivity water
+  {100,         HSTIARTIA_5K},       // Maintain 5K for this range
+  {500,         HSTIARTIA_1K},       // Higher frequencies
+  {1000,        HSTIARTIA_1K},       // kHz range
+  {5000,        HSTIARTIA_1K},       // Mid kHz
+  {10000,       HSTIARTIA_200},      // High frequencies
+  {50000,       HSTIARTIA_200},      // Very high frequencies
+  {200000,      HSTIARTIA_200}       // Maximum frequency
+};  
  
 /* Variables for function inputs */
 int gainSize = (int)sizeof(test) / sizeof(test[0]); // Now 8 entries instead of 6
@@ -72,7 +77,7 @@ uint32_t numCycles = 0;
 uint32_t delaySecs = 0;  
 uint32_t numPoints = 20; // 10 points per decade for good quality, reasonable time (~71 total points, ~45 minutes) 
 
-float startFreq = 0.015; 
+float startFreq = 0.15; //0.15Hz
 float endFreq = 200000; //200kHz
 float biasVolt = 0.0; 
 float zeroVolt = 0.0; 
