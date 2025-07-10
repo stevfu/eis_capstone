@@ -70,15 +70,15 @@ imagZ = Zi_smooth;
 Zexp = Zr_smooth + 1j * Zi_smooth;
 
 % Line of best fit
-p1 = polyfit(Zr_smooth, Zi_smooth, 7);
+p1 = polyfit(Zr_smooth, Zi_smooth, 2);
 Zi_fit = polyval(p1, Zr_smooth);
 
 % Plot
 figure('Name', 'Nyquist');
 plot(Zr_smooth, Zi_smooth, 'o', 'DisplayName','Smoothed Data'); 
 hold on;
-plot(Zr_smooth, Zi_fit, '--', 'LineWidth', 2, 'DisplayName','Line of Best Fit'); 
-axis equal; grid on;
+% plot(Zr_smooth, Zi_fit, '-', 'LineWidth', 2, 'DisplayName','Line of Best Fit'); 
+% axis equal; grid on;
 ylim([0 7e4])
 xlabel('Z_{real} [\Omega]');
 ylabel('-Z_{imag} [\Omega]');
