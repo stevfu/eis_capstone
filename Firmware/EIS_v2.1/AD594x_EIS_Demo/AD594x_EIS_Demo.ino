@@ -55,25 +55,29 @@
 #define LEDPIN 6
 
 calHSTIA test[] = {          
-  {0.1,         HSTIARTIA_160K},     // Very low frequencies need high gain  
-  {1,           HSTIARTIA_80K},       
-  {10,          HSTIARTIA_40K},       
-  {100,         HSTIARTIA_20K},
-  {1000,        HSTIARTIA_10K},
-  {10000,       HSTIARTIA_5K},
-  {50000,       HSTIARTIA_1K},
-  {200000,      HSTIARTIA_200}  
-};    
+  {0.1,         HSTIARTIA_160K},     // Very low freq - electrode polarization ~50-100kΩ
+  {0.5,         HSTIARTIA_80K},      // Low freq - still dominated by electrode effects  
+  {1,           HSTIARTIA_40K},      // Transition from electrode to solution effects
+  {5,           HSTIARTIA_20K},      // Mid-low frequencies ~10-20kΩ expected
+  {10,          HSTIARTIA_10K},      // Transition region ~5-10kΩ
+  {50,          HSTIARTIA_5K},       // Solution resistance becoming dominant ~2-5kΩ
+  {100,         HSTIARTIA_1K},       // Solution resistance ~500-2kΩ
+  {500,         HSTIARTIA_1K},       // Pure solution resistance ~300-1kΩ
+  {1000,        HSTIARTIA_1K},       // Stable solution resistance ~200-800Ω
+  {5000,        HSTIARTIA_1K},       // **CHANGED** from 200Ω - better SNR at high freq
+  {10000,       HSTIARTIA_1K},       // **CHANGED** from 200Ω - reduce high-freq noise  
+  {50000,       HSTIARTIA_1K}        // **CHANGED** from 200Ω - remove 100kHz point
+};
  
 /* Variables for function inputs */
 int gainSize = (int)sizeof(test) / sizeof(test[0]); // Now 8 entries instead of 6
 
-uint32_t numCycles = 0; 
-uint32_t delaySecs = 0;  
-uint32_t numPoints = 20; // 10 points per decade for good quality, reasonable time (~71 total points, ~45 minutes) 
+uint32_t numCycles = 10; 
+uint32_t delaySecs = 2;  
+uint32_t numPoints = 10; // 10 points per decade for good quality, reasonable time (~71 total points, ~45 minutes) 
 
-float startFreq = 0.015; 
-float endFreq = 200000; //200kHz
+float startFreq = 0.1; //0.15Hz
+float endFreq = 100000; //200kHz
 float biasVolt = 0.0; 
 float zeroVolt = 0.0; 
 float rcalVal = 9930; // Use the measured resistance of the chosen calibration resistor
@@ -91,6 +95,8 @@ String folderName = "folder-name-here";
 String fileName = "file-name-here"; 
 
 void setup() {
+
+  delay(1000);
   Serial.begin(115200);
   
   demo.BLE_setup();
