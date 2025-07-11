@@ -7,14 +7,14 @@ Rct_expected = 128000;     % Ohm
 Cdl_expected = 70.4e-6;     % F
 wRealWeight  = 1;
 wImagWeight  = 1;
-dataFile = 'test_2025-06-11.csv';
+dataFile = 'testdata_2025-07-05_3.csv';
 
-selectedModel = '2RC'; % Options: '2RC', 'R-C', 'Warburg', 'Gerischer', 'DRT'
+selectedModel = 'DRT'; % Options: '2RC', 'R-C', 'Warburg', 'Gerischer', 'DRT'
 
 %% 2) Load & Inspect Data
 D     = readmatrix(dataFile);
 freq  = D(:,2);
-Zr    = D(:,6);
+Zr    = -D(:,6);
 Zi    = -D(:,7);                             % Invert sign if CSV stored +Im(Z)
 
 % Sort by frequency
@@ -23,7 +23,7 @@ Zr = Zr(sortIdx);
 Zi = Zi(sortIdx);
 
 % Apply moving average filter
-windowSize = 13;
+windowSize = 31;
 Zr_smooth = movmean(Zr, windowSize);
 Zi_smooth = movmean(Zi, windowSize);
 Zexp = Zr_smooth + 1j * Zi_smooth;

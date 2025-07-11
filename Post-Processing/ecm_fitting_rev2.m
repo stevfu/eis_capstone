@@ -40,58 +40,51 @@ Z_imag = imag(Z_complex);
 
 wRealWeight  = 1;
 wImagWeight  = 1;
-dataFile = 'testdata_20250701 (1).csv';
+dataFile = 'testdata_2025-07-05_3.csv';
 
 D = readmatrix(dataFile);
 
-freq  = D(:,1);
-Zr    = abs(D(:,5));
-Zi    = abs(D(:,6));                             % Invert sign if CSV stored +Im(Z)
+freq  = D(:,2);
+Zr    = abs(D(:,6));
+Zi    = abs(D(:,7));  % Invert sign if CSV stored +Im(Z)
 
-[freq, sortIdx] = sort(freq);                % Ensure frequency is sorted
+% Sort by frequency
+[freq, sortIdx] = sort(freq);
 Zr = Zr(sortIdx);
 Zi = Zi(sortIdx);
 
-
-window = 7;
-polyorder = 3;
-
+% Smoothing
+window = 21;
+polyorder = 2;
 Z_real_sg = sgolayfilt(Zr, polyorder, window);
 Z_imag_sg = sgolayfilt(Zi, polyorder, window);
 
-order = 3;
-cutoff = 0.1;  % Normalized cutoff (0 < cutoff < 1)
-[b, a] = butter(order, cutoff, 'low');
-
-% Zr_smooth = filtfilt(b, a, Zr)
-% Zi_smooth = filtfilt(b, a, Zi)
-
-Zr_smooth = Zr;
-Zi_smooth = Zi
-
-Zexp = Zr_smooth + 1j * Zi_smooth;
-
-figure('Name', 'Nyquist ');
-%plot(Zr_smooth, Zi_smooth, 'o', 'DisplayName','Data'); hold on;
-%plot(Zr_smooth, Zi_smooth, '-', 'LineWidth',1.5, 'DisplayName','Model Fit');
-
-
-% plot(Z_real, -Z_imag, '-o'); % Plot Z_real vs -Z_imag
-% hold on;
-
-plot(Zr_smooth, Zi_smooth, '-o'); 
-axis equal; grid on;
-xlabel('Z_{real} [\Omega]'); ylabel('-Z_{imag} [\Omega]');
-title('Nyquist Plot'); legend('Location','best');
-
-
-hold off;
-
+% Currently using smoothed signal only
+Zr_smooth = Z_real_sg;
+Zi_smooth = Z_imag_sg;
+freqExt = freq;
 realZ = Zr_smooth;
 imagZ = Zi_smooth;
-% realZ = Zr;
-% imagZ = Zi;
-freqExt = freq;
+% Zr_smooth = Zr;
+% Zi_smooth = Zi;
+Zexp = Zr_smooth + 1j * Zi_smooth;
+
+% Line of best fit
+p1 = polyfit(Zr_smooth, Zi_smooth, 7);
+Zi_fit = polyval(p1, Zr_smooth);
+
+% Plot
+figure('Name', 'Nyquist');
+plot(Zr_smooth, Zi_smooth, 'o', 'DisplayName','Smoothed Data'); 
+hold on;
+plot(Zr_smooth, Zi_fit, '--', 'LineWidth', 2, 'DisplayName','Line of Best Fit'); 
+axis equal; grid on;
+ylim([0 7e4])
+xlabel('Z_{real} [\Omega]');
+ylabel('-Z_{imag} [\Omega]');
+title('Nyquist Plot');
+legend('Location','best');
+
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure('Name','Impedance Spectroscopy','NumberTitle','on');
@@ -111,6 +104,7 @@ set(h,'Box','on','Color','w','Location','NorthEast','FontSize',12,'FontWeight','
 
 xlim([0.01 100e3])
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Removing the series resistor (It improves the precision in high frequencies)
@@ -126,6 +120,7 @@ for nn = 3:NumFreq-2
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 figure('Name','Impedance Spectroscopy','NumberTitle','on');
 set(gca,'FontSize',12,'LineWidth',2,'Color',[1 1 1],'Box','on');
 h = semilogx(freq,imagZ);
@@ -206,6 +201,7 @@ ylabel('Residual (%)');
 
 % Compare with analytical solution
 residuals = [Zr - real(Z_fit); Zi - imag(Z_fit)];
+
 
 
 function [params, rmse, Z_fit] = eis_ecm_fit(frequency, Z_real, Z_imag, model_order)
