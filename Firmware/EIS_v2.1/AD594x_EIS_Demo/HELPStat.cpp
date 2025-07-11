@@ -2161,8 +2161,7 @@ void HELPStat::AD5940_DFTMeasureEIS(void) {
   printf("%.4f,", eis.real);
   printf("%.4f,", eis.imag);
   printf("%.4f", eis.phaseRad);
-  printf(" [%d/%d]\n", _sweepCfg.SweepIndex + 1, _sweepCfg.SweepPoints); // Progress indicator
-
+  printf("\n");
   
   // printf("rLoad: %.3f,", AD5940_ComplexMag(&rLoad));
   // printf("rzRload: %.3f\n", AD5940_ComplexMag(&rzRload));
