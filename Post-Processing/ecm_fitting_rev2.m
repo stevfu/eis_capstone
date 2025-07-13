@@ -40,7 +40,7 @@ Z_imag = imag(Z_complex);
 
 wRealWeight  = 1;
 wImagWeight  = 1;
-dataFile = 'Rayping.csv';
+dataFile = 'Rain1.csv';
 
 D = readmatrix(dataFile);
 
@@ -55,7 +55,7 @@ Zi = Zi(sortIdx);
 
 % Smoothing
 window = 21;
-polyorder = 3;
+polyorder = 2;
 Z_real_sg = sgolayfilt(Zr, polyorder, window);
 Z_imag_sg = sgolayfilt(Zi, polyorder, window);
 
@@ -65,8 +65,8 @@ Zi_smooth = Z_imag_sg;
 freqExt = freq;
 realZ = Zr_smooth;
 imagZ = Zi_smooth;
-Zr_smooth = Zr;
-Zi_smooth = Zi;
+% Zr_smooth = Zr;
+% Zi_smooth = Zi;
 Zexp = Zr_smooth + 1j * Zi_smooth;
 
 % Line of best fit
@@ -77,7 +77,7 @@ Zi_fit = polyval(p1, Zr_smooth);
 figure('Name', 'Nyquist');
 plot(Zr_smooth, Zi_smooth, 'o', 'DisplayName','Smoothed Data'); 
 %plot(KKrealZ.', KKimagZ.', 'o', 'DisplayName','KK-Calculated data');
-%plot(Zr, Zi, 'o', 'DisplayName','Actual Data');
+plot(Zr, Zi, 'o', 'DisplayName','Actual Data');
 hold on;
 % axis equal; grid on;
 %ylim([0 7e4])
