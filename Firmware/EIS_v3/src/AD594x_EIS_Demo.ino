@@ -51,15 +51,6 @@
 //#define HSDACGAIN_0P2               1   /**< Gain is x1/5 */
 
 /* Using I2C pins as GPIOs for buttons - Optional */
-
-
-#if CONFIG_IDF_TARGET_ESP32S3
-  #define USB_SERIAL Serial
-#else
-  #define USB_SERIAL Serial
-#endif
-
-
 #define BUTTON 7
 #define LEDPIN 6
 
@@ -104,8 +95,6 @@ String folderName = "folder-name-here";
 String fileName = "file-name-here"; 
 
 void setup() {
-
-  delay(1000);
   Serial.begin(115200);
   
   demo.BLE_setup();
