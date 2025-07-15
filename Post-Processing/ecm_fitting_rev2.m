@@ -40,7 +40,7 @@ Z_imag = imag(Z_complex);
 
 wRealWeight  = 1;
 wImagWeight  = 1;
-dataFile = 'Rain1.csv';
+dataFile = 'Balloon1.csv';
 
 D = readmatrix(dataFile);
 
@@ -80,7 +80,7 @@ plot(Zr_smooth, Zi_smooth, 'o', 'DisplayName','Smoothed Data');
 plot(Zr, Zi, 'o', 'DisplayName','Actual Data');
 hold on;
 % axis equal; grid on;
-%ylim([0 7e4])
+ylim([0 7e4])
 xlabel('Z_{real} [\Omega]');
 ylabel('-Z_{imag} [\Omega]');
 title('Nyquist Plot');
