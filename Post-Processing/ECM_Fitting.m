@@ -7,9 +7,11 @@ Rct_expected = 128000;     % Ohm
 Cdl_expected = 70.4e-6;     % F
 wRealWeight  = 1;
 wImagWeight  = 1;
-dataFile = 'testdata_2025-07-05_3.csv';
+% dataFile = 'Balloon2.csv';
+dataFile = 'QuilWater.csv';
+% dataFile = 'BennyWater.csv';
 
-selectedModel = 'DRT'; % Options: '2RC', 'R-C', 'Warburg', 'Gerischer', 'DRT'
+selectedModel = '2RC'; % Options: '2RC', 'R-C', 'Warburg', 'Gerischer', 'DRT'
 
 %% 2) Load & Inspect Data
 D     = readmatrix(dataFile);

@@ -40,8 +40,9 @@ Z_imag = imag(Z_complex);
 
 wRealWeight  = 1;
 wImagWeight  = 1;
-dataFile = 'Balloon1.csv';
-
+% dataFile = 'Balloon2.csv';
+dataFile = 'QuilWater.csv';
+% dataFile = 'BennyWater.csv';
 D = readmatrix(dataFile);
 
 freq  = D(:,2);
@@ -62,11 +63,13 @@ Z_imag_sg = sgolayfilt(Zi, polyorder, window);
 % Currently using smoothed signal only
 Zr_smooth = Z_real_sg;
 Zi_smooth = Z_imag_sg;
+
+% Zr_smooth = Zr;
+% Zi_smooth = Zi;
 freqExt = freq;
 realZ = Zr_smooth;
 imagZ = Zi_smooth;
-% Zr_smooth = Zr;
-% Zi_smooth = Zi;
+
 Zexp = Zr_smooth + 1j * Zi_smooth;
 
 % Line of best fit
@@ -77,10 +80,11 @@ Zi_fit = polyval(p1, Zr_smooth);
 figure('Name', 'Nyquist');
 plot(Zr_smooth, Zi_smooth, 'o', 'DisplayName','Smoothed Data'); 
 %plot(KKrealZ.', KKimagZ.', 'o', 'DisplayName','KK-Calculated data');
-plot(Zr, Zi, 'o', 'DisplayName','Actual Data');
+%plot(Zr, Zi, 'o', 'DisplayName','Actual Data');
 hold on;
-% axis equal; grid on;
-ylim([0 7e4])
+%axis equal; grid on;
+ylim([0 .7e4])
+xlim([0 .9e4])
 xlabel('Z_{real} [\Omega]');
 ylabel('-Z_{imag} [\Omega]');
 title('Nyquist Plot');
