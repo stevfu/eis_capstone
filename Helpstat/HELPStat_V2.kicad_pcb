@@ -9057,7 +9057,7 @@
 		(property "Reference" "U5"
 			(at 0 0 0)
 			(layer "F.SilkS")
-			(uuid "ab939c93-7e70-497a-9b3f-1e9a3f783fd7")
+			(uuid "fbcc8cd6-2fcf-4230-8c5f-d964016dd8c6")
 			(effects
 				(font
 					(size 1 1)
@@ -9068,7 +9068,7 @@
 		(property "Value" "ESP32-S3-DEVKITC-1-N8R2"
 			(at 4.83 33.255 90)
 			(layer "F.Fab")
-			(uuid "9bb7fbb4-e45e-4f0b-939a-9c1cc348449c")
+			(uuid "3ab6cdfc-3ade-4aa8-ba44-97767c33c25a")
 			(effects
 				(font
 					(size 1 1)
@@ -9080,7 +9080,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "2c468bab-e6a8-4554-a3a4-d00106968177")
+			(uuid "d53bdef4-16eb-442a-bdc5-02e9226daee7")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9092,7 +9092,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "c75b26a3-5ed1-4642-baaa-9aa997065c5d")
+			(uuid "24b0e8bb-cd8a-48d8-8c36-73591ec10bcb")
 			(effects
 				(font
 					(size 1.27 1.27)

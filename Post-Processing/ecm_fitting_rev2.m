@@ -41,7 +41,7 @@ Z_imag = imag(Z_complex);
 wRealWeight  = 1;
 wImagWeight  = 1;
 % dataFile = 'Balloon2.csv';
-dataFile = 'Beer3.csv';
+dataFile = 'Quiller.csv';
 % dataFile = 'BennyWater.csv';
 D = readmatrix(dataFile);
 
@@ -56,7 +56,7 @@ Zi = Zi(sortIdx);
 
 % Smoothing
 window = 21;
-polyorder = 2;
+polyorder = 1;
 Z_real_sg = sgolayfilt(Zr, polyorder, window);
 Z_imag_sg = sgolayfilt(Zi, polyorder, window);
 
@@ -77,36 +77,28 @@ p1 = polyfit(Zr_smooth, Zi_smooth, 2);
 Zi_fit = polyval(p1, Zr_smooth);
 
 % Plot
-figure('Name', 'Nyquist');
-plot(Zr_smooth, Zi_smooth, 'o', 'DisplayName','Smoothed Data'); 
+%figure('Name', 'Nyquist');
+%plot(Zr_smooth, Zi_smooth, 'o', 'DisplayName','Smoothed Data'); 
 %plot(KKrealZ.', KKimagZ.', 'o', 'DisplayName','KK-Calculated data');
-%plot(Zr, Zi, 'o', 'DisplayName','Actual Data');
+%plot(Zr, Zi, '.', 'DisplayName','Actual Data'); % #3D1 A69
+%exportPlot(Zr, Zi,'nyquist'); 
+%Zi_smooth_2 = Zi_smooth;
+%Zr_smooth_2 = Zr_smooth;
+%save("quiller.mat","Zi_smooth_2","Zr_smooth_2")
+load("water.mat");
+load("benny.mat"); 
+exportPlot(Zr_smooth, Zi_smooth,Zr_smooth_2,Zi_smooth_2, 'nyquist', 'Water vs. Water + Benadryl');
 hold on;
 %axis equal; grid on;
 % ylim([0 0.4e4])
 % xlim([0 0.6e4])
-xlabel('Z_{real} [\Omega]');
-ylabel('-Z_{imag} [\Omega]');
-title('Nyquist Plot');
-legend('Location','best');
+% xlabel('Z_{real} [\Omega]');
+% ylabel('-Z_{imag} [\Omega]');
+% title('Nyquist Plot');
+% legend('Location','best');    
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-figure('Name','Impedance Spectroscopy','NumberTitle','on');
-set(gca,'FontSize',12,'LineWidth',2,'Color',[1 1 1],'Box','on');
-h = semilogx(freqExt,realZ);
-set(h,'LineWidth',4,'LineStyle','-','Color','b')
-hold on;
-h = semilogx(freqExt,imagZ);
-set(h,'LineWidth',4,'LineStyle','--','Color','r')
-grid on
-title('Impedance Spectroscopy','fontsize',12,'fontweight','n','color','k');
-xlabel('Frequency  [Hz]','fontsize',12,'fontweight','n','color','k');
-ylabel('Impedance  [\Omega]','fontsize',12,'fontweight','n','fontangle','n','color','k');
-
-h = legend('Real Z','Imag Z');
-set(h,'Box','on','Color','w','Location','NorthEast','FontSize',12,'FontWeight','n','FontAngle','n')
-
-xlim([0.01 100e3])
+ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%
@@ -125,11 +117,12 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%exportPlot(freq,imagZ,FreqKK,KKimagZ,'KK',"K-K Transform: Real");
 figure('Name','Impedance Spectroscopy','NumberTitle','on');
 set(gca,'FontSize',12,'LineWidth',2,'Color',[1 1 1],'Box','on');
 h = semilogx(freq,imagZ);
 set(h,'LineWidth',2.5,'LineStyle','--','Color','r')
-hold on;
+hold on; 
 h = semilogx(FreqKK,KKimagZ);
 set(h,'LineWidth',2.5,'LineStyle','-','Color','g')
 grid on;
@@ -153,26 +146,27 @@ for nn = 3:NumFreq-2
     KKrealZ(nn - 2) = -(2/pi)*(trapz(freqExt(1:nn-1),integrand(1:nn-1)) + trapz(freqExt(nn+1:NumFreq),integrand(nn+1:NumFreq)));
 end
 
+%exportPlot(freq,realZ,FreqKK,KKrealZ + realZ(end),'KK',"K-K Transform - Imaginary")
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-figure('Name','Impedance Spectroscopy','NumberTitle','on');
-
-set(gca,'FontSize',12,'LineWidth',2,'Color',[1 1 1],'Box','on');
-
-h = semilogx(freq,realZ);
-set(h,'LineWidth',2.5,'LineStyle','--','Color','r')
-hold on;
-h = semilogx(FreqKK,KKrealZ + realZ(end));
-set(h,'LineWidth',2.5,'LineStyle','-','Color','g')
-grid on;
-
-title('Impedance Spectroscopy','fontsize',12,'fontweight','n','color','k');
-xlabel('Frequency  [Hz]','fontsize',12,'fontweight','n','color','k');
-ylabel('Resistance  [\Omega]','fontsize',12,'fontweight','n','fontangle','n','color','k');
-
-h = legend('Measurement','Kramers-Kronig');
-set(h,'Box','on','Color','w','Location','NorthEast','FontSize',12,'FontWeight','n','FontAngle','n')
-
-hold on;
+% figure('Name','Impedance Spectroscopy','NumberTitle','on');
+% 
+% set(gca,'FontSize',12,'LineWidth',2,'Color',[1 1 1],'Box','on');
+% 
+% h = semilogx(freq,realZ);
+% set(h,'LineWidth',2.5,'LineStyle','--','Color','r')
+% hold on;
+% h = semilogx(FreqKK,KKrealZ + realZ(end));
+% set(h,'LineWidth',2.5,'LineStyle','-','Color','g')
+% grid on;
+% 
+% title('Impedance Spectroscopy','fontsize',12,'fontweight','n','color','k');
+% xlabel('Frequency  [Hz]','fontsize',12,'fontweight','n','color','k');
+% ylabel('Resistance  [\Omega]','fontsize',12,'fontweight','n','fontangle','n','color','k');
+% 
+% h = legend('Measurement','Kramers-Kronig');
+% set(h,'Box','on','Color','w','Location','NorthEast','FontSize',12,'FontWeight','n','FontAngle','n')
+% 
+% hold on;
 
 % Calculate residuals
 % Align measured and KK data: use indices 3:end-2 for measured data

@@ -66,17 +66,18 @@ calHSTIA test[] = {
   {1000,        HSTIARTIA_1K},       // Stable solution resistance ~200-800Ω
   {5000,        HSTIARTIA_1K},       // **CHANGED** from 200Ω - better SNR at high freq
   {10000,       HSTIARTIA_1K},       // **CHANGED** from 200Ω - reduce high-freq noise  
-  {50000,       HSTIARTIA_1K}        // **CHANGED** from 200Ω - remove 100kHz point
+  {50000,       HSTIARTIA_1K},        // **CHANGED** from 200Ω - remove 100kHz point
+  {100000,      HSTIARTIA_200}         // **CHANGED** from 200Ω - remove 100kHz point
 };
  
 /* Variables for function inputs */
 int gainSize = (int)sizeof(test) / sizeof(test[0]); // Now 8 entries instead of 6
 
-uint32_t numCycles = 10; 
-uint32_t delaySecs = 2;  
-uint32_t numPoints = 10; // 10 points per decade for good quality, reasonable time (~71 total points, ~45 minutes) 
+uint32_t numCycles = 5; 
+uint32_t delaySecs = 0; // Reduced from 2s - 1s is sufficient for electrode equilibration
+uint32_t numPoints = 8; // 10 points per decade for good quality, reasonable time (~71 total points, ~30 minutes) 
 
-float startFreq = 0.1; //0.15Hz
+float startFreq = 100; //0.15Hz
 float endFreq = 100000; //200kHz
 float biasVolt = 0.0; 
 float zeroVolt = 0.0; 
@@ -110,7 +111,7 @@ void setup() {
   demo.AD5940Start();
 
   // Configuration is complete
-  Serial.println("Pins configured! Press button to begin.");
+  // Serial.println("Pins configured! Press button to begin.");
 
    // put your main code here, to run repeatedly: 
   demo.BLE_settings();
@@ -119,9 +120,9 @@ void setup() {
   // if(buttonStatus == LOW)
   // {
   digitalWrite(LEDPIN, LOW);
-  Serial.println("Button pressed - starting measurements!");
+  // Serial.println("Button pressed - starting measurements!");
 
-  demo.print_settings();
+  //  demo.print_settings();
 
   // blinkLED(3, 0);
     
@@ -157,7 +158,7 @@ void loop() {
     
   /* Main Testing Code - also used for current draw as a standard sweep measurement */
   demo.AD5940_TDD(startFreq, endFreq, numPoints, biasVolt, zeroVolt, rcalVal, test, gainSize, extGain, dacGain); 
-  demo.print_settings();
+  // demo.print_settings();
   demo.runSweep();
   //demo.calculateResistors();
   //demo.BLE_transmitResults();

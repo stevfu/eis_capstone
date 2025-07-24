@@ -38,6 +38,7 @@ AD5940Err HELPStat::AD5940Start(void) {
     if(err != 0) return AD5940ERR_ERROR;
     
     /* PIN DISPLAY */
+    /*
     delay(5000);
     Serial.println("Start sequence successful.");
     Serial.print("SCK: ");
@@ -52,6 +53,7 @@ AD5940Err HELPStat::AD5940Start(void) {
     Serial.println(CS);
     Serial.print("INTERRUPT PIN: ");
     Serial.println(ESP32_INTERRUPT);
+    */
 
 }
 
@@ -297,7 +299,7 @@ void HELPStat::AD5940_TDD(calHSTIA *gainArr, int gainArrSize) {
 
   /* Configuring the Gain Array */
   _gainArrSize = gainArrSize;
-  printf("Gain array size: %d\n", _gainArrSize);
+  // printf("Gain array size: %d\n", _gainArrSize);
   for(uint32_t i = 0; i < _gainArrSize; i++)
     _gainArr[i] = gainArr[i];
 
@@ -316,7 +318,7 @@ void HELPStat::AD5940_TDD(calHSTIA *gainArr, int gainArrSize) {
   clk_cfg.HFXTALEn = bFALSE; // Disables any need for external clocks
   clk_cfg.LFOSCEn = bTRUE; // Enables 32 kHz clock for timing / wakeups
   AD5940_CLKCfg(&clk_cfg); // Configures the clock
-  Serial.println("Clock setup successfully.");
+  // Serial.println("Clock setup successfully.");
 
   /* Step3. Interrupt controller */
   AD5940_INTCCfg(AFEINTC_1, AFEINTSRC_ALLINT, bTRUE);   /* Enable all interrupt in INTC1, so we can check INTC flags */
@@ -325,7 +327,7 @@ void HELPStat::AD5940_TDD(calHSTIA *gainArr, int gainArrSize) {
   /* Set INT0 source to be DFT READY */
   AD5940_INTCCfg(AFEINTC_0, AFEINTSRC_DFTRDY, bTRUE); 
   AD5940_INTCClrFlag(AFEINTSRC_ALLINT); // clears all flags 
-  Serial.println("INTs setup successfully.");
+  // Serial.println("INTs setup successfully.");
 
   /* Step4: Reconfigure GPIO */
   gpio_cfg.FuncSet = GP0_INT;
@@ -337,7 +339,7 @@ void HELPStat::AD5940_TDD(calHSTIA *gainArr, int gainArrSize) {
   gpio_cfg.PullEnSet = 0; // Disables any GPIO pull-ups / Pull-downs
 
   AD5940_AGPIOCfg(&gpio_cfg); // Configures the GPIOs
-  Serial.println("GPIOs setup successfully.");
+  // Serial.println("GPIOs setup successfully.");
 
   /* CONFIGURING FOR DFT */
   // AFE Configuration 
@@ -367,19 +369,19 @@ void HELPStat::AD5940_TDD(calHSTIA *gainArr, int gainArrSize) {
   {
     aferef_cfg.LpBandgapEn = bFALSE;
     aferef_cfg.LpRefBufEn = bFALSE;
-    printf("No bias today!\n");
+   //  printf("No bias today!\n");
   }
   else
   {
     aferef_cfg.LpBandgapEn = bTRUE;
     aferef_cfg.LpRefBufEn = bTRUE;
-    printf("We have bias!\n");
+    // printf("We have bias!\n");
   }
 
   /* Doesn't enable boosting buffer current */
   aferef_cfg.LpRefBoostEn = bFALSE;
   AD5940_REFCfgS(&aferef_cfg);	// Configures the AFE 
-  Serial.println("AFE setup successfully.");
+  // Serial.println("AFE setup successfully.");
   
   /* Disconnect SE0 from LPTIA - double check this too */
 	LpAmpCfg.LpAmpPwrMod = LPAMPPWR_NORM;
@@ -390,7 +392,7 @@ void HELPStat::AD5940_TDD(calHSTIA *gainArr, int gainArrSize) {
   LpAmpCfg.LpTiaRtia = LPTIARTIA_OPEN; /* Disconnect Rtia to avoid RC filter discharge */
   LpAmpCfg.LpTiaSW = LPTIASW(7)|LPTIASW(8)|LPTIASW(12)|LPTIASW(13); 
 	AD5940_LPAMPCfgS(&LpAmpCfg);
-  Serial.println("SE0 disconnected from LPTIA.");
+  // Serial.println("SE0 disconnected from LPTIA.");
   
   // Configuring High Speed Loop (high power loop)
   /* Vpp * BufGain * DacGain */
@@ -408,12 +410,12 @@ void HELPStat::AD5940_TDD(calHSTIA *gainArr, int gainArrSize) {
   if((_biasVolt == 0.0f) && (_zeroVolt == 0.0f))
   {
     HsLoopCfg.HsTiaCfg.HstiaBias = HSTIABIAS_1P1;
-    printf("HSTIA bias set to 1.1V.\n");
+    // printf("HSTIA bias set to 1.1V.\n");
   }
   else 
   {
     HsLoopCfg.HsTiaCfg.HstiaBias = HSTIABIAS_VZERO0;
-    printf("HSTIA bias set to Vzero.\n");
+    // printf("HSTIA bias set to Vzero.\n");
   }
 
   /* Sets feedback capacitor on HSTIA */
@@ -435,13 +437,13 @@ void HELPStat::AD5940_TDD(calHSTIA *gainArr, int gainArrSize) {
   HsLoopCfg.WgCfg.WgType = WGTYPE_SIN;
   HsLoopCfg.WgCfg.GainCalEn = bTRUE;          // Gain calibration
   HsLoopCfg.WgCfg.OffsetCalEn = bTRUE;        // Offset calibration
-  printf("Current Freq: %f\n", _currentFreq);
+ //  printf("Current Freq: %f\n", _currentFreq);
   HsLoopCfg.WgCfg.SinCfg.SinFreqWord = AD5940_WGFreqWordCal(_currentFreq, sysClkFreq);
   HsLoopCfg.WgCfg.SinCfg.SinAmplitudeWord = (uint32_t)((sineVpp/800.0f)*2047 + 0.5f);
   HsLoopCfg.WgCfg.SinCfg.SinOffsetWord = 0;
   HsLoopCfg.WgCfg.SinCfg.SinPhaseWord = 0;
   AD5940_HSLoopCfgS(&HsLoopCfg);
-  Serial.println("HS Loop configured successfully");
+  // Serial.println("HS Loop configured successfully");
   
   /* Configuring Sweep Functionality */
   _sweepCfg.SweepEn = bTRUE; 
@@ -453,8 +455,8 @@ void HELPStat::AD5940_TDD(calHSTIA *gainArr, int gainArrSize) {
   // Defaulting to a logarithmic sweep. Works both upwards and downwards
   if(_startFreq > _endFreq) _sweepCfg.SweepPoints = (uint32_t)(1.5 + (log10(_startFreq) - log10(_endFreq)) * (_numPoints)) - 1;
   else _sweepCfg.SweepPoints = (uint32_t)(1.5 + (log10(_endFreq) - log10(_startFreq)) * (_numPoints)) - 1;
-  printf("Number of points: %d\n", _sweepCfg.SweepPoints);
-  Serial.println("Sweep configured successfully.");
+  // printf("Number of points: %d\n", _sweepCfg.SweepPoints);
+  // Serial.println("Sweep configured successfully.");
 
    /* Configuring LPDAC if necessary */
   if((_biasVolt != 0.0f) || (_zeroVolt != 0.0f))
@@ -497,7 +499,7 @@ void HELPStat::AD5940_TDD(calHSTIA *gainArr, int gainArrSize) {
     // Allows for measuring of Vbias and Vzero voltages and connects them to LTIA, LPPA, and HSTIA
     lpdac_cfg.LpDacSW = LPDACSW_VBIAS2LPPA|LPDACSW_VBIAS2PIN|LPDACSW_VZERO2LPTIA|LPDACSW_VZERO2PIN|LPDACSW_VZERO2HSTIA;
     AD5940_LPDACCfgS(&lpdac_cfg);
-    Serial.println("LPDAC configured successfully.");
+    // Serial.println("LPDAC configured successfully.");
   }
 
   // /* Sets the input of the ADC to the output of the HSTIA */
@@ -533,7 +535,7 @@ void HELPStat::AD5940_TDD(calHSTIA *gainArr, int gainArrSize) {
   memset(&dsp_cfg.StatCfg, 0, sizeof(dsp_cfg.StatCfg));
   
   AD5940_DSPCfgS(&dsp_cfg); // Sets the DFT 
-  Serial.println("DSP configured successfully.");
+  // Serial.println("DSP configured successfully.");
 
   /* Calculating Clock Cycles to wait given DFT settings */
   clks_cal.DataType = DATATYPE_DFT;
@@ -557,7 +559,7 @@ void HELPStat::AD5940_TDD(calHSTIA *gainArr, int gainArrSize) {
     AD5940_AFECtrlS(AFECTRL_HSTIAPWR|AFECTRL_INAMPPWR|AFECTRL_EXTBUFPWR|\
                   AFECTRL_WG|AFECTRL_DACREFPWR|AFECTRL_HSDACPWR|\
                   AFECTRL_SINC2NOTCH, bTRUE);
-    Serial.println("No bias applied.");
+    // Serial.println("No bias applied.");
   }
   else
   {
@@ -569,14 +571,14 @@ void HELPStat::AD5940_TDD(calHSTIA *gainArr, int gainArrSize) {
     AD5940_AFECtrlS(AFECTRL_HSTIAPWR|AFECTRL_INAMPPWR|AFECTRL_EXTBUFPWR|\
                   AFECTRL_WG|AFECTRL_DACREFPWR|AFECTRL_HSDACPWR|\
                   AFECTRL_SINC2NOTCH|AFECTRL_DCBUFPWR, bTRUE);
-    Serial.println("Bias is applied.");
+    // Serial.println("Bias is applied.");
   }
 
   // AD5940_SleepKeyCtrlS(SLPKEY_LOCK); // Disables Sleep Mode 
 
-  Serial.println("Everything turned on.");
-  printf("Number of points to sweep: %d\n", _sweepCfg.SweepPoints);
-  printf("Bias: %f, Zero: %f\n", _biasVolt, _zeroVolt);
+  // // Serial.println("Everything turned on.");
+  // printf("Number of points to sweep: %d\n", _sweepCfg.SweepPoints);
+  // printf("Bias: %f, Zero: %f\n", _biasVolt, _zeroVolt);
 }
 void HELPStat::AD5940_TDD(float startFreq, float endFreq, uint32_t numPoints, float biasVolt, float zeroVolt, float rcalVal, calHSTIA *gainArr, int gainArrSize, int extGain, int dacGain) {
 
@@ -598,7 +600,7 @@ void HELPStat::AD5940_TDD(float startFreq, float endFreq, uint32_t numPoints, fl
 
   /* Configuring the Gain Array */
   _gainArrSize = gainArrSize;
-  printf("Gain array size: %d\n", _gainArrSize);
+  // printf("Gain array size: %d\n", _gainArrSize);
   for(uint32_t i = 0; i < _gainArrSize; i++)
   {
     _gainArr[i] = gainArr[i];
@@ -620,7 +622,7 @@ void HELPStat::AD5940_TDD(float startFreq, float endFreq, uint32_t numPoints, fl
   clk_cfg.HFXTALEn = bFALSE; // Disables any need for external clocks
   clk_cfg.LFOSCEn = bTRUE; // Enables 32 kHz clock for timing / wakeups
   AD5940_CLKCfg(&clk_cfg); // Configures the clock
-  Serial.println("Clock setup successfully.");
+  // Serial.println("Clock setup successfully.");
 
   /* Step3. Interrupt controller */
   AD5940_INTCCfg(AFEINTC_1, AFEINTSRC_ALLINT, bTRUE);   /* Enable all interrupt in INTC1, so we can check INTC flags */
@@ -629,7 +631,7 @@ void HELPStat::AD5940_TDD(float startFreq, float endFreq, uint32_t numPoints, fl
   /* Set INT0 source to be DFT READY */
   AD5940_INTCCfg(AFEINTC_0, AFEINTSRC_DFTRDY, bTRUE); 
   AD5940_INTCClrFlag(AFEINTSRC_ALLINT); // clears all flags 
-  Serial.println("INTs setup successfully.");
+  // Serial.println("INTs setup successfully.");
 
   /* Step4: Reconfigure GPIO */
   gpio_cfg.FuncSet = GP0_INT;
@@ -641,7 +643,7 @@ void HELPStat::AD5940_TDD(float startFreq, float endFreq, uint32_t numPoints, fl
   gpio_cfg.PullEnSet = 0; // Disables any GPIO pull-ups / Pull-downs
 
   AD5940_AGPIOCfg(&gpio_cfg); // Configures the GPIOs
-  Serial.println("GPIOs setup successfully.");
+  // Serial.println("GPIOs setup successfully.");
 
   /* CONFIGURING FOR DFT */
   // AFE Configuration 
@@ -671,19 +673,19 @@ void HELPStat::AD5940_TDD(float startFreq, float endFreq, uint32_t numPoints, fl
   {
     aferef_cfg.LpBandgapEn = bFALSE;
     aferef_cfg.LpRefBufEn = bFALSE;
-    printf("No bias today!\n");
+    // printf("No bias today!\n");
   }
   else
   {
     aferef_cfg.LpBandgapEn = bTRUE;
     aferef_cfg.LpRefBufEn = bTRUE;
-    printf("We have bias!\n");
+    // printf("We have bias!\n");
   }
 
   /* Doesn't enable boosting buffer current */
   aferef_cfg.LpRefBoostEn = bFALSE;
   AD5940_REFCfgS(&aferef_cfg);	// Configures the AFE 
-  Serial.println("AFE setup successfully.");
+  // Serial.println("AFE setup successfully.");
   
   /* Disconnect SE0 from LPTIA - double check this too */
 	LpAmpCfg.LpAmpPwrMod = LPAMPPWR_NORM;
@@ -694,7 +696,7 @@ void HELPStat::AD5940_TDD(float startFreq, float endFreq, uint32_t numPoints, fl
   LpAmpCfg.LpTiaRtia = LPTIARTIA_OPEN; /* Disconnect Rtia to avoid RC filter discharge */
   LpAmpCfg.LpTiaSW = LPTIASW(7)|LPTIASW(8)|LPTIASW(12)|LPTIASW(13); 
 	AD5940_LPAMPCfgS(&LpAmpCfg);
-  Serial.println("SE0 disconnected from LPTIA.");
+  // Serial.println("SE0 disconnected from LPTIA.");
   
   // Configuring High Speed Loop (high power loop)
   /* Vpp * BufGain * DacGain */
@@ -715,12 +717,12 @@ void HELPStat::AD5940_TDD(float startFreq, float endFreq, uint32_t numPoints, fl
   if((biasVolt == 0.0f) && (zeroVolt == 0.0f))
   {
     HsLoopCfg.HsTiaCfg.HstiaBias = HSTIABIAS_1P1;
-    printf("HSTIA bias set to 1.1V.\n");
+    // printf("HSTIA bias set to 1.1V.\n");
   }
   else 
   {
     HsLoopCfg.HsTiaCfg.HstiaBias = HSTIABIAS_VZERO0;
-    printf("HSTIA bias set to Vzero.\n");
+    // printf("HSTIA bias set to Vzero.\n");
   }
 
   /* Sets feedback capacitor on HSTIA */
@@ -742,13 +744,13 @@ void HELPStat::AD5940_TDD(float startFreq, float endFreq, uint32_t numPoints, fl
   HsLoopCfg.WgCfg.WgType = WGTYPE_SIN;
   HsLoopCfg.WgCfg.GainCalEn = bTRUE;          // Gain calibration
   HsLoopCfg.WgCfg.OffsetCalEn = bTRUE;        // Offset calibration
-  printf("Current Freq: %f\n", _currentFreq);
+ //  printf("Current Freq: %f\n", _currentFreq);
   HsLoopCfg.WgCfg.SinCfg.SinFreqWord = AD5940_WGFreqWordCal(_currentFreq, sysClkFreq);
   HsLoopCfg.WgCfg.SinCfg.SinAmplitudeWord = (uint32_t)((sineVpp/800.0f)*2047 + 0.5f);
   HsLoopCfg.WgCfg.SinCfg.SinOffsetWord = 0;
   HsLoopCfg.WgCfg.SinCfg.SinPhaseWord = 0;
   AD5940_HSLoopCfgS(&HsLoopCfg);
-  Serial.println("HS Loop configured successfully");
+  // Serial.println("HS Loop configured successfully");
   
   /* Configuring Sweep Functionality */
   _sweepCfg.SweepEn = bTRUE; 
@@ -763,8 +765,8 @@ void HELPStat::AD5940_TDD(float startFreq, float endFreq, uint32_t numPoints, fl
   // Defaulting to a logarithmic sweep. Works both upwards and downwards
   if(startFreq > endFreq) _sweepCfg.SweepPoints = (uint32_t)(1.5 + (log10(startFreq) - log10(endFreq)) * (numPoints)) - 1;
   else _sweepCfg.SweepPoints = (uint32_t)(1.5 + (log10(endFreq) - log10(startFreq)) * (numPoints)) - 1;
-  printf("Number of points: %d\n", _sweepCfg.SweepPoints);
-  Serial.println("Sweep configured successfully.");
+  // printf("Number of points: %d\n", _sweepCfg.SweepPoints);
+  // Serial.println("Sweep configured successfully.");
 
    /* Configuring LPDAC if necessary */
   if((biasVolt != 0.0f) || (zeroVolt != 0.0f))
@@ -807,7 +809,7 @@ void HELPStat::AD5940_TDD(float startFreq, float endFreq, uint32_t numPoints, fl
     // Allows for measuring of Vbias and Vzero voltages and connects them to LTIA, LPPA, and HSTIA
     lpdac_cfg.LpDacSW = LPDACSW_VBIAS2LPPA|LPDACSW_VBIAS2PIN|LPDACSW_VZERO2LPTIA|LPDACSW_VZERO2PIN|LPDACSW_VZERO2HSTIA;
     AD5940_LPDACCfgS(&lpdac_cfg);
-    Serial.println("LPDAC configured successfully.");
+    // Serial.println("LPDAC configured successfully.");
   }
 
   // /* Sets the input of the ADC to the output of the HSTIA */
@@ -843,7 +845,7 @@ void HELPStat::AD5940_TDD(float startFreq, float endFreq, uint32_t numPoints, fl
   memset(&dsp_cfg.StatCfg, 0, sizeof(dsp_cfg.StatCfg));
   
   AD5940_DSPCfgS(&dsp_cfg); // Sets the DFT 
-  Serial.println("DSP configured successfully.");
+  // Serial.println("DSP configured successfully.");
 
   /* Calculating Clock Cycles to wait given DFT settings */
   clks_cal.DataType = DATATYPE_DFT;
@@ -867,7 +869,7 @@ void HELPStat::AD5940_TDD(float startFreq, float endFreq, uint32_t numPoints, fl
     AD5940_AFECtrlS(AFECTRL_HSTIAPWR|AFECTRL_INAMPPWR|AFECTRL_EXTBUFPWR|\
                   AFECTRL_WG|AFECTRL_DACREFPWR|AFECTRL_HSDACPWR|\
                   AFECTRL_SINC2NOTCH, bTRUE);
-    Serial.println("No bias applied.");
+    // Serial.println("No bias applied.");
   }
   else
   {
@@ -879,14 +881,14 @@ void HELPStat::AD5940_TDD(float startFreq, float endFreq, uint32_t numPoints, fl
     AD5940_AFECtrlS(AFECTRL_HSTIAPWR|AFECTRL_INAMPPWR|AFECTRL_EXTBUFPWR|\
                   AFECTRL_WG|AFECTRL_DACREFPWR|AFECTRL_HSDACPWR|\
                   AFECTRL_SINC2NOTCH|AFECTRL_DCBUFPWR, bTRUE);
-    Serial.println("Bias is applied.");
+    // Serial.println("Bias is applied.");
   }
 
   // AD5940_SleepKeyCtrlS(SLPKEY_LOCK); // Disables Sleep Mode 
 
-  Serial.println("Everything turned on.");
-  printf("Number of points to sweep: %d\n", _sweepCfg.SweepPoints);
-  printf("Bias: %f, Zero: %f\n", biasVolt, zeroVolt);
+  // Serial.println("Everything turned on.");
+  // printf("Number of points to sweep: %d\n", _sweepCfg.SweepPoints);
+  // printf("Bias: %f, Zero: %f\n", biasVolt, zeroVolt);
 }
 
 void HELPStat::AD5940_DFTMeasure(void) {
@@ -1065,9 +1067,9 @@ void HELPStat::runSweep(void) {
     Need to not run the program if ArraySize < total points 
     TO DO: ADD A CHECK HERE  
   */
-  printf("Total points to run: %d\n", (_numCycles + 1) * _sweepCfg.SweepPoints); // since 0 based indexing, add 1
-  printf("Set array size: %d\n", ARRAY_SIZE);
-  printf("Calibration resistor value: %f\n", _rcalVal);
+  // printf("Total points to run: %d\n", (_numCycles + 1) * _sweepCfg.SweepPoints); // since 0 based indexing, add 1
+  // printf("Set array size: %d\n", ARRAY_SIZE);
+  // printf("Calibration resistor value: %f\n", _rcalVal);
 
   // LED to show start of spectroscopy 
   // digitalWrite(LED1, HIGH); 
@@ -1082,7 +1084,7 @@ void HELPStat::runSweep(void) {
     {
       unsigned long prevTime = millis();
       unsigned long currTime = millis();
-      printf("Delaying for %d seconds\n", _delaySecs);
+      // printf("Delaying for %d seconds\n", _delaySecs);
       while(currTime - prevTime < _delaySecs * 1000)
       {
         currTime = millis();
@@ -1095,7 +1097,7 @@ void HELPStat::runSweep(void) {
     if(i > 0){
       if(AD5940_WakeUp(10) > 10) Serial.println("Wakeup failed!");       
        resetSweep(&_sweepCfg, &_currentFreq);
-       delay(300); // empirical settling delay
+       delay(100); // Reduced from 300ms - sufficient for AFE stabilization
        _currentCycle++;
     }
     
@@ -1103,10 +1105,10 @@ void HELPStat::runSweep(void) {
     // Should calibrate when AFE is active
     // checkFreq(_currentFreq);
     configureFrequency(_currentFreq);
-    delay(10); // switching delay
+    delay(5); // Reduced from 10ms - sufficient for switching delay
 
-    printf("Cycle %d\n", i);
-    printf("Index, Frequency (Hz), DFT Cal, DFT Mag, Rz (Ohms), Rreal, Rimag, Rphase (rads)\n");
+   //  printf("Cycle %d\n", i);
+    // printf("Index, Frequency (Hz), DFT Cal, DFT Mag, Rz (Ohms), Rreal, Rimag, Rphase (rads)\n");
     
     while(_sweepCfg.SweepEn == bTRUE)
     {
@@ -1116,7 +1118,7 @@ void HELPStat::runSweep(void) {
       AD5940_AFECtrlS(AFECTRL_HSTIAPWR|AFECTRL_INAMPPWR|AFECTRL_EXTBUFPWR|\
               AFECTRL_WG|AFECTRL_DACREFPWR|AFECTRL_HSDACPWR|\
               AFECTRL_SINC2NOTCH, bTRUE);
-      delay(200);
+      delay(50); // Reduced from 200ms - sufficient for AFE re-enabling
     }
 
     unsigned long timeEnd = millis(); 
@@ -1125,8 +1127,8 @@ void HELPStat::runSweep(void) {
   
   /* Shutdown to conserve power. This turns off the LP-Loop and resets the AFE. */
   AD5940_ShutDownS();
-  printf("All cycles finished.");
-  printf("AD594x shutting down.");
+  // printf("All cycles finished.");
+  // printf("AD594x shutting down.");
 
   /* LEDs to show end of cycle */
   // digitalWrite(LED1, LOW);
@@ -1169,7 +1171,7 @@ void HELPStat::runSweep(uint32_t numCycles, uint32_t delaySecs) {
     if(i > 0){
       if(AD5940_WakeUp(10) > 10) Serial.println("Wakeup failed!");       
        resetSweep(&_sweepCfg, &_currentFreq);
-       delay(300); // empirical settling delay
+       delay(100); // Reduced from 300ms - sufficient for AFE stabilization
        _currentCycle++;
     }
     
@@ -1177,7 +1179,7 @@ void HELPStat::runSweep(uint32_t numCycles, uint32_t delaySecs) {
     // Should calibrate when AFE is active
     // checkFreq(_currentFreq);
     configureFrequency(_currentFreq);
-    delay(10); // switching delay
+    delay(5); // Reduced from 10ms - sufficient for switching delay
 
     printf("Cycle %d\n", i);
     printf("Index, Frequency (Hz), DFT Cal, DFT Mag, Rz (Ohms), Rreal, Rimag, Rphase (rads)\n");
@@ -1190,7 +1192,7 @@ void HELPStat::runSweep(uint32_t numCycles, uint32_t delaySecs) {
       AD5940_AFECtrlS(AFECTRL_HSTIAPWR|AFECTRL_INAMPPWR|AFECTRL_EXTBUFPWR|\
               AFECTRL_WG|AFECTRL_DACREFPWR|AFECTRL_HSDACPWR|\
               AFECTRL_SINC2NOTCH, bTRUE);
-      delay(200);
+      delay(50); // Reduced from 200ms - sufficient for AFE re-enabling
     }
 
     unsigned long timeEnd = millis(); 
@@ -1218,31 +1220,46 @@ void HELPStat::resetSweep(SoftSweepCfg_Type *pSweepCfg, float *pNextFreq) {
 }
 
 void HELPStat::settlingDelay(float freq) {
- 
-  unsigned long constDelay = 1000; // Base delay constant
+  unsigned long settlingTime;
    
-  /* Getting the delay time based on frequency */
+  /* Optimized frequency-dependent settling delays based on EIS theory:
+     - Very low freq: electrode polarization dominates, need longer settling
+     - Low freq: solution resistance becomes apparent, moderate settling  
+     - High freq: dominated by solution resistance, minimal settling needed */
+     
   if(freq <= 0.1) {
-    // For very low frequencies (< 0.1 Hz), wait for 2 full periods + 3 seconds
-    constDelay = 3000; // 3 second base delay
-    unsigned long periodDelay = (unsigned long)(2 * 1000 / freq);
-    delay(periodDelay + constDelay);
+    // Very low frequencies: wait for 3 periods + 1.5s (reduced from 3s)
+    settlingTime = (unsigned long)(3 * 1000 / freq) + 1500;
   }
-  else if(freq <= 1.0) {
-    // For low frequencies (0.1-1 Hz), wait for 2 full periods + 2 seconds  
-    constDelay = 2000; // 2 second base delay
-    unsigned long periodDelay = (unsigned long)(2 * 1000 / freq);
-    delay(periodDelay + constDelay);
+  else if(freq <= 0.5) {
+    // Low frequencies: wait for 2 periods + 1s (reduced from 2s)
+    settlingTime = (unsigned long)(2 * 1000 / freq) + 1000;
   }
-  else if(freq <= 5.0) {
-    // For medium-low frequencies (1-5 Hz), wait for 1 full period + 1 second
-    constDelay = 1000; // 1 second base delay
-    delay((unsigned long)(1 * 1000 / freq) + constDelay);
+  else if(freq <= 2.0) {
+    // Medium-low frequencies: wait for 2 periods + 0.5s
+    settlingTime = (unsigned long)(2 * 1000 / freq) + 500;
+  }
+  else if(freq <= 10.0) {
+    // Medium frequencies: wait for 1.5 periods + 0.3s
+    settlingTime = (unsigned long)(1.5 * 1000 / freq) + 300;
+  }
+  else if(freq <= 100.0) {
+    // Higher frequencies: wait for 1 period + 0.2s
+    settlingTime = (unsigned long)(1 * 1000 / freq) + 200;
+  }
+  else if(freq <= 1000.0) {
+    // High frequencies: wait for 0.5 period + 0.1s
+    settlingTime = (unsigned long)(0.5 * 1000 / freq) + 100;
   }
   else {
-    // For higher frequencies, use standard delay
-    delay(constDelay); 
+    // Very high frequencies: minimal delay (50ms)
+    settlingTime = 50;
   }
+  
+  // Cap maximum delay at 30 seconds for very low frequencies
+  if(settlingTime > 30000) settlingTime = 30000;
+  
+  delay(settlingTime);
 }
 
 AD5940Err HELPStat::checkFreq(float freq) {

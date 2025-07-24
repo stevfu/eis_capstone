@@ -37,31 +37,32 @@ Z_imag = imag(Z_complex);
 
 % Generate the Nyquist Plot 
 % Method 1: Using the built-in 'nyquist' function for quick plotting
-figure;
-nyquistplot(Z_tf, {2*pi*f_start, 2*pi*f_end}); % Provide frequency range in rad/s
-title('Nyquist Plot (using nyquistplot function)');
-xlabel('Real(Z) / Ohms');
-ylabel('Imaginary(Z) / Ohms'); % nyquistplot by default plots Im(Z)
-grid on;
-axis equal; 
+% figure;
+% nyquistplot(Z_tf, {2*pi*f_start, 2*pi*f_end}); % Provide frequency range in rad/s
+% title('Nyquist Plot (using nyquistplot function)');
+% xlabel('Real(Z) / Ohms');
+% ylabel('Imaginary(Z) / Ohms'); % nyquistplot by default plots Im(Z)
+% grid on;
+% axis equal; 
 
 % Method 2: Plotting manually for more control (e.g., plotting -Z_imag)
-figure;
-plot(Z_real, -Z_imag, '-o'); % Plot Z_real vs -Z_imag
-hold on;
-
-plot(Z_real(1), -Z_imag(1), 'sg', 'MarkerFaceColor', 'g', 'MarkerSize', 8); 
-plot(Z_real(end), -Z_imag(end), 'sr', 'MarkerFaceColor', 'r', 'MarkerSize', 8); 
-hold off;
-
-title('Nyquist Plot (manual: Z_{real} vs -Z_{imag})');
-xlabel('Z_{real} / Ohms');
-ylabel('-Z_{imag} / Ohms');
-grid on;
-axis equal; 
-legend('Impedance Data', 'Start Frequency', 'End Frequency', 'Location', 'best');
-
-disp('Frequency (Hz), Real(Z) (Ohms), Imaginary(Z) (Ohms):');
-for i = 1:length(freq_hz)
-    fprintf('%10.4f Hz, %10.4f Ohms, %10.4f Ohms\n', freq_hz(i), Z_real(i), Z_imag(i));
-end
+exportPlot(Z_real,-Z_imag,'nyquist',"ECM");
+% figure;
+% plot(Z_real, -Z_imag, '-o'); % Plot Z_real vs -Z_imag
+% hold on;
+% 
+% %plot(Z_real(1), -Z_imag(1), 'sg', 'MarkerFaceColor', 'g', 'MarkerSize', 8); 
+% %plot(Z_real(end), -Z_imag(end), 'sr', 'MarkerFaceColor', 'r', 'MarkerSize', 8); 
+% hold off;
+% 
+% title('Nyquist Plot (manual: Z_{real} vs -Z_{imag})');
+% xlabel('Z_{real} / Ohms');
+% ylabel('-Z_{imag} / Ohms');
+% grid on;
+% axis equal; 
+% legend('Impedance Data', 'Start Frequency', 'End Frequency', 'Location', 'best');
+% 
+% disp('Frequency (Hz), Real(Z) (Ohms), Imaginary(Z) (Ohms):');
+% for i = 1:length(freq_hz)
+%     fprintf('%10.4f Hz, %10.4f Ohms, %10.4f Ohms\n', freq_hz(i), Z_real(i), Z_imag(i));
+% end

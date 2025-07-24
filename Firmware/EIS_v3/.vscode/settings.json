@@ -2,5 +2,9 @@
     "idf.portWin": "COM5",
     "idf.openOcdConfigs": [
         "board/esp32s3-builtin.cfg"
-    ]
+    ],
+    "files.associations": {
+        "*.m": "matlab",
+        "cmath": "cpp"
+    }
 }
